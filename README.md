@@ -1,34 +1,34 @@
-<p><H3>XIAO ESP32S3 SENSE ���g�p�����g�C�J����</H3></p>
+<p><H3>XIAO ESP32S3 SENSE を使用したトイカメラ</H3></p>
 <p>
-XIAO ESP32S3 SENSE ���g�p�����g�C�J�����𐻍삵���̂ŏЉ��B<br>
-XIAO ESP32S3 SENSE�ɂ́ASD�J�[�h���T�|�[�g����J�������W���[�����t�����Ă���B����XIAO ESP32S3 SENSE�ƃ��j�^�[�Ƃ���<br>
-128x160/1.8�C���`��TFT�f�B�X�v���C�i�h���C�o�[��ST7735�j�j��g�ݍ��킹�ăg�C�J�����𐻍삵���B<br>
-XIAO ESP32S3 SENS��WiFi�@�\�𗘗p���āA����̓u���E�U����s���B<br>
-�J����Arduino IDE 2.1�ōs�����B<br>
-XIAO ESP32S3 SENSE�ɂ��ẮA<a href="https://wiki.seeedstudio.com/xiao_esp32s3_getting_started/">������</a>���Q�Ƃ̂��ƁB
+XIAO ESP32S3 SENSE を使用したトイカメラを製作したので紹介する。<br>
+XIAO ESP32S3 SENSEには、SDカードをサポートするカメラモジュールが付属している。このXIAO ESP32S3 SENSEとモニターとして<br>
+128x160/1.8インチのTFTディスプレイ（ドライバーはST7735））を組み合わせてトイカメラを製作した。<br>
+XIAO ESP32S3 SENSのWiFi機能を利用して、操作はブラウザから行う。<br>
+開発はArduino IDE 2.1で行った。<br>
+XIAO ESP32S3 SENSEについては、<a href="https://wiki.seeedstudio.com/xiao_esp32s3_getting_started/">こちら</a>を参照のこと。
 </p>
 
-<p><strong>�T�v</strong><br>
-<p>�@�\�͈ȉ��̒ʂ�B</p>
+<p><strong>概要</strong><br>
+<p>機能は以下の通り。</p>
 <ul>
-<li>JPG�̎ʐ^�iXGA�j���B��āAXIAO ESP32S3 SENSE������SD�J�[�h�ɕۑ��ł���B</li>
-<li>JPG�̃X�g���[���摜�iXGA�j���u���E�U���猩����B</li>
-<li>�ۑ����ꂽJPG�̎ʐ^���u���E�U���猩����B</li>
-<li>���j�^�[��ʁiTFT�AQQVGA�j���T�|�[�g�B</li>
-<li>�u���E�U���瑀�삵�āAJPG�̎ʐ^���B���B</li>
+<li>JPGの写真（XGA）が撮れて、XIAO ESP32S3 SENSE内蔵のSDカードに保存できる。</li>
+<li>JPGのストリーム画像（XGA）をブラウザから見られる。</li>
+<li>保存されたJPGの写真をブラウザから見られる。</li>
+<li>モニター画面（TFT、QQVGA）をサポート。</li>
+<li>ブラウザから操作して、JPGの写真が撮れる。</li>
 </ul>
 </p>
-<p><strong>H/W�\��</strong><br>
- �ESeeed Studio XIAO ESP32S3 SENSE - �R���g���[��<br>
- �ESPI�ڑ�&nbsp; TFT�f�B�X�v���C(ST7735)<br>
- �E�V���b�^�[�p�̃{�^���X�C�b�`�A�z���p�W�����v���C���[<br>
+<p><strong>H/W構成</strong><br>
+ ・Seeed Studio XIAO ESP32S3 SENSE - コントローラ<br>
+ ・SPI接続&nbsp; TFTディスプレイ(ST7735)<br>
+ ・シャッター用のボタンスイッチ、配線用ジャンプワイヤー<br>
 </p>
 <p>
 <img src="./inet_camera.JPG" width="440" height="440"><br>
-���j�^�[������B�e�B�d���Ƃ��āA�O���̉����ɁA�P�O3�{�imax4.8V�j����̓d�r�{�b�N�X�����Ă���B�㕔�̃{�^���͎B�e�p�V���b�^�[�ł���B
+モニター側から撮影。電源として、外箱の下部に、単三3本（max4.8V）入りの電池ボックスを入れてある。上部のボタンは撮影用シャッターである。
 </p>
-<p><strong>�ڑ�</strong><br>
-�e�R���|�[�l���g�̐ڑ��͈ȉ��̒ʂ�B<br>
+<p><strong>接続</strong><br>
+各コンポーネントの接続は以下の通り。<br>
 </p>
 <p>
 <table> 
@@ -51,43 +51,43 @@ XIAO ESP32S3 SENSE�ɂ��ẮA<a href="https://wiki.seeedstudio.com/xiao_esp32s3
 <td>TFT_RST</td><td>GPIO2</td>
 </tr>
 </table>
-<p>�J�����̃V���b�^�[�i�{�^���X�C�b�`�j�́AGPIO1�ɐڑ�����B�{�^���X�C�b�`�̐ړ_�̂����A���������GND�ɐڑ�����B</p>
-<p>XIAO ESP32S3 SENSE������SD�J�[�h���j�b�g�́AGPIO21�Ő��䂷��悤�ɂȂ��Ă���B<br>
-�Ȃ��AGPIO21�́AXIAO ESP32S3 SENSE�̃r���g�C��LED�Ƌ��ʂł���B
+<p>カメラのシャッター（ボタンスイッチ）は、GPIO1に接続する。ボタンスイッチの接点のうち、もう一方はGNDに接続する。</p>
+<p>XIAO ESP32S3 SENSE内蔵のSDカードユニットは、GPIO21で制御するようになっている。<br>
+なお、GPIO21は、XIAO ESP32S3 SENSEのビルトインLEDと共通である。
 </P>
 </p>
-<p><strong>�C���X�g�[��</strong><br>
+<p><strong>インストール</strong><br>
 <ol>
-<li>�R�[�h���AZIP�`���Ń_�E�����[�h</li>
-<li>�ǉ��̃��C�u�������AZIP�`���Ń_�E�����[�h�A���C�u�����}�l�[�W������C���X�g�[������</li>
+<li>コードを、ZIP形式でダウンロード</li>
+<li>追加のライブラリを、ZIP形式でダウンロード、ライブラリマネージャからインストールする</li>
  <ul>
-  <li>Adafruit ST7735�i���C�u�����}�l�[�W�����猟���j</li>
+  <li>Adafruit ST7735（ライブラリマネージャから検索可）</li>
   <li>TimeLib&nbsp;:&nbsp; https://github.com/PaulStoffregen/Time</li>
  </ul>
-<li>ArduinoIDE����xiao_sense_vstream_st7735_display_jpgfile_qqvga_sd_master.ino���J��</li>
-<li>�u���؁E�R���p�C���v�ɐ���������A��U�A�u���O��t���ĕۑ��v���s��</li>
-<li>SSID��PASSWORD�̓A�N�Z�X�|�C���g�ɉ����āA�v���O������ύX���邱�ƁBWiFi�ɐڑ��ł��Ȃ��ꍇ�͓���s�ł���B</li>
+<li>ArduinoIDEからxiao_sense_vstream_st7735_display_jpgfile_qqvga_sd_master.inoを開く</li>
+<li>「検証・コンパイル」に成功したら、一旦、「名前を付けて保存」を行う</li>
+<li>SSIDとPASSWORDはアクセスポイントに応じて、プログラムを変更すること。WiFiに接続できない場合は動作不可である。</li>
 </ol>
 </p>
-<p><strong>�u���E�U����̗��p</strong><br>
+<p><strong>ブラウザからの利用</strong><br>
 </p>
-<p>�ڑ����ꂽIP�A�h���X�́AArduino�@IDE�̃V���A���o�͂ɕ\�������B<br>
-����IP�A�h���X�Ƀu���E�U����ڑ��i�Ⴆ�΁hhttp://192.168.0.xx�h�Ǝw��j����ƁA���̉�ʂ��\�������B<br>
-�ȈՂȃ��O�C���@�\���T�|�[�g���Ă��邽�߁A�p�X�R�[�h�̓��͂��K�v�ł���B�����l�́h123�h�ł���i���p���͕��G�Ȃ��̂ɏ��������邱�Ƃ����߂�j�B</p>
+<p>接続されたIPアドレスは、Arduino　IDEのシリアル出力に表示される。<br>
+そのIPアドレスにブラウザから接続（例えば「ｈｔｔｐ：／／192.168.0.ｘｘ」と指定）すると、次の画面が表示される。<br>
+簡易なログイン機能をサポートしているため、パスコードの入力が必要である。初期値は”123”である（利用時は複雑なものに書き換えることを勧める）。</p>
 <p>
 <img src="./inet_camera_1.png" width="660" height="260"><br>
 </p>
-<p>���O�C������ƁA���̉�ʂ��\�������B�htake a photo�h�{�^���������ƁA�ʐ^���B�e����AJPG�t�@�C����SD�J�[�h�ɕۑ������B<br>
-�t�@�C�����́A�B�e�����ƃV�[�P���X�ԍ��ō\�������B��ʏ�ɂ́A�V�����t�@�C����20���܂Ń��X�g�����i�� �폜��SD�J�[�h���p�\�R���ɑ}���čs���j�B<br>
-�t�@�C�������N���b�N����Ǝʐ^���u���E�U�ɕ\�������B
+<p>ログインすると、次の画面が表示される。”take a photo”ボタンを押すと、写真が撮影され、JPGファイルがSDカードに保存される。<br>
+ファイル名は、撮影時刻とシーケンス番号で構成される。画面上には、新しいファイルが20枚までリストされる（注 削除はSDカードをパソコンに挿して行う）。<br>
+ファイル名をクリックすると写真がブラウザに表示される。
 </p>
-<p>"Stream Video�h���N���b�N����ƁA�u���E�U�ɃX�g���[���摜���\�������B�X�g���[���̕\�����I������ꍇ�́A�u���E�U���I������B</p>
+<p>"Stream Video”をクリックすると、ブラウザにストリーム画像が表示される。ストリームの表示を終了する場合は、ブラウザを終了する。</p>
 <p>
 <img src="./inet_camera_2.png" width="660" height="860"><br>
 </p>
-<p><strong>�኱�̉��</strong><br>
-�E�R�[�h����WiFi��SSID��PASSWORD�́A���p���Ă��閳�����[�^�[�̂��̂��w�肷��B�v���O�����̕ύX�ŁA�������[�^�[��2��܂Ŏw�肷�邱�Ƃ��ł���B<br>
+<p><strong>若干の解説</strong><br>
+・コード中のWiFiのSSIDとPASSWORDは、利用している無線ルーターのものを指定する。プラグラムの変更で、無線ルーターは2台まで指定することができる。<br>
 </p>
-<p><strong>���ӎ���<br>
-�E���p�̍ۂ́A���ȐӔC�ł��y���݂��������B</strong><br>
+<p><strong>注意事項<br>
+・利用の際は、自己責任でお楽しみください。</strong><br>
 </p>
